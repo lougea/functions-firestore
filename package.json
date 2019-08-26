@@ -1,0 +1,41 @@
+{
+  "name": "functions-firestore",
+  "version": "1.0.0",
+  "description": "My riveting Nuxt.js project",
+  "author": "lougea",
+  "private": true,
+  "scripts": {
+    "dev": "cross-env NODE_ENV=development nodemon server/index.js --watch server",
+    "build": "nuxt build",
+    "start": "cross-env NODE_ENV=production node server/index.js",
+    "generate": "nuxt generate",
+    "lint": "eslint --ext .js,.vue --ignore-path .gitignore ."
+  },
+  "dependencies": {
+    "@nuxtjs/axios": "^5.3.6",
+    "cross-env": "^5.2.0",
+    "date": "^1.0.2",
+    "date-fns": "^2.0.1",
+    "express": "^4.16.4",
+    "firebase": "^6.4.2",
+    "fns": "^1.0.0",
+    "import-from": "^3.0.0",
+    "nuxt": "^2.0.0",
+    "vuefire": "^2.1.2"
+  },
+  "devDependencies": {
+    "@nuxtjs/eslint-config": "^1.0.1",
+    "@nuxtjs/eslint-module": "^1.0.0",
+    "@nuxtjs/tailwindcss": "^1.0.0",
+    "babel-eslint": "^10.0.1",
+    "eslint": "^6.1.0",
+    "eslint-config-prettier": "^4.1.0",
+    "eslint-plugin-nuxt": ">=0.4.2",
+    "eslint-plugin-prettier": "^3.0.1",
+    "nodemon": "^1.18.9",
+    "nuxt-purgecss": "^0.2.1",
+    "postcss-import": "^12.0.1",
+    "prettier": "^1.16.4",
+    "tailwindcss": "^1.1.2"
+  }
+}
