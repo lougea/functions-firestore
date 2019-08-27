@@ -4,22 +4,6 @@ const axios = require('axios')
 
 admin.initializeApp()
 
-// exports.daySince = functions.https.onRequest(async (req, res) => {
-//   const date = req.query.date
-//   const result = parse(date, 'dd/MM/yyyy', new Date())
-//   console.log(result)
-//   const result2 = differenceInDays(new Date(), result)
-//   res.status(200).send(`${result2}`)
-// })
-
-// exports.dinero = functions.https.onRequest(async (req, res) => {
-//   const price = parseInt(req.query.price)
-//   console.log(price)
-//   const result = Dinero({ amount: price }).multiply(4)
-//   console.log(result)
-//   res.send(result)
-// })
-
 exports.searchUnsplash = functions.https.onRequest(async (req, res) => {
   try {
     //////////////////////////////// Unsplash
@@ -85,7 +69,23 @@ exports.searchUnsplash = functions.https.onRequest(async (req, res) => {
       }
     })
     const pexels = res_pexels.data.photos
-    res.send(pexels)
+    const pexelsJson = pexels.map((picture) => {
+      return {
+        id: picture.id,
+        width: picture.width,
+        height: picture.height,
+        urls: {
+          thumb: picture.src.small,
+          full: picture.src.original
+        }
+      }
+    })
+
+    ///////////////////////
+
+    const allJson = [...unsplashsJson, ...pexelsJson]
+
+    res.send(allJson)
   } catch (error) {
     console.error(error.message)
   }
