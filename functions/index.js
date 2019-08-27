@@ -1,24 +1,24 @@
 const functions = require('firebase-functions')
 const admin = require('firebase-admin')
 const axios = require('axios')
+const os = require('os')
+const path = require('path')
+const fs = require('fs')
 
 admin.initializeApp()
 
-// exports.daySince = functions.https.onRequest(async (req, res) => {
-//   const date = req.query.date
-//   const result = parse(date, 'dd/MM/yyyy', new Date())
-//   console.log(result)
-//   const result2 = differenceInDays(new Date(), result)
-//   res.status(200).send(`${result2}`)
-// })
-
-// exports.dinero = functions.https.onRequest(async (req, res) => {
-//   const price = parseInt(req.query.price)
-//   console.log(price)
-//   const result = Dinero({ amount: price }).multiply(4)
-//   console.log(result)
-//   res.send(result)
-// })
+exports.blackAndWhite = functions.https.onRequest(async (req, res) => {
+  const url = req.query.url
+  const temp = path.join(os.tmpdir(), 'test.jpg')
+  const response = await axios({
+    url: `${url}`,
+    method: 'GET',
+    responseType: 'arraybuffer'
+  })
+  const file = Buffer.from(response.data)
+  fs.writeFileSync(temp, file)
+  res.sendFile(temp)
+})
 
 exports.searchUnsplash = functions.https.onRequest(async (req, res) => {
   try {
