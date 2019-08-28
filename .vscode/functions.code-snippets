@@ -1,0 +1,145 @@
+{
+	"Functions setup": {
+    "prefix": "f init",
+    "body": [
+      "const functions = require(\"firebase-functions\")",
+      "const CONFIG = functions.config()",
+      "const SPECS = {",
+      "    timeoutSeconds: 30,",
+      "    memory: \"256MB\"",
+      "}",
+      ""
+    ],
+    "description": "Functions setup"
+  },
+
+  "Admin setup": {
+    "prefix": "f admin",
+    "body": [
+      "const admin = require(\"firebase-admin\")",
+      "const db = admin.firestore()",
+      "const storage = admin.storage()",
+      ""
+    ],
+    "description": "Admin setup"
+  },
+
+  "": {
+    "prefix": "f http",
+    "body": [
+      "exports = module.exports = functions",
+      "    .runWith(SPECS)",
+      "    .https.onRequest(async (req, res) => {",
+      "   ",
+      "})",
+      ""
+    ],
+    "description": ""
+  },
+
+  "": {
+    "prefix": "f call",
+    "body": [
+      "exports = module.exports = functions",
+      "    .runWith(SPECS)",
+      "    .https.onCall(async (data, context) => {",
+      "        ",
+      "})",
+      ""
+    ],
+    "description": ""
+  },
+
+  "Storage function": {
+    "prefix": "f storage",
+    "body": [
+      "exports = module.exports = functions",
+      "    .runWith(SPECS)",
+      "    .storage.object()",
+      "    .onFinalize(async (object) => {",
+      "        const fileBucket = object.bucket; // The Storage bucket that contains the file.",
+      "        const filePath = object.name; // File path in the bucket.",
+      "        const contentType = object.contentType; // File content type.",
+      "        ",
+      "    })",
+      "})",
+      "",
+      ""
+    ],
+    "description": "Storage function"
+  },
+
+  "Filesystem setup": {
+    "prefix": "f fs",
+    "body": [
+      "const os = require(\"os\")",
+      "const fs = require(\"fs\")",
+      "const path = require(\"path\")",
+      ""
+    ],
+    "description": "Filesystem setup"
+  },
+
+
+  "PubSub setup": {
+    "prefix": "f pubsub",
+    "body": [
+      "const { PubSub } = require(\"@google-cloud/pubsub\")",
+      "const pubsub = new PubSub()",
+      "",
+      ""
+    ],
+    "description": "PubSub setup"
+  },
+
+  "": {
+    "prefix": "f pubsub ${topic}",
+    "body": [
+      "exports = module.exports = functions",
+      "    .runWith(SPECS)",
+      "    .pubsub.topic(\"${topic}\")",
+      "    .onPublish(async message => {",
+      "        const {} = message.json",
+      "    })",
+      ""
+    ],
+    "description": ""
+  },
+
+  "": {
+    "prefix": "f publish ${topic}",
+    "body": [
+      "const encodeBuffer = Buffer.from(JSON.stringify(data))",
+      "",
+      "await pubsub",
+      "    .topic(\"${1:example}\", {",
+      "        batching: {",
+      "            maxMessages: 1,",
+      "            maxMilliseconds: 0",
+      "        }",
+      "    })",
+      ".publish(encodeBuffer)",
+      ""
+    ],
+    "description": ""
+  },
+
+  "Mustache setup": {
+    "prefix": "f mustache",
+    "body": [
+      "const template = fs.readFileSync(`${ __dirname }/templates/template.mu`, \"utf8\")",
+      "const mustache = require(\"mustache\")",
+      "mustache.parse(template)",
+      "",
+      ""
+    ],
+    "description": "Mustache setup"
+  }
+
+
+
+
+
+
+
+}
